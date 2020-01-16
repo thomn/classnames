@@ -1,0 +1,33 @@
+{
+  "name": "@thomn/classnames",
+  "version": "1.0.0",
+  "description": "utility for conditionally joining classnames",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json -w",
+    "test": "ts-node node_modules/tape/bin/tape tests/**/*.ts"
+  },
+  "files": [
+    "lib"
+  ],
+  "types": "types/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thomn/classname.git"
+  },
+  "author": {
+    "name": "Oleg Kamlowski",
+    "email": "oleg.kamlowski@thomann.de"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thomn/classnames/issues"
+  },
+  "homepage": "https://github.com/thomn/classnames#readme",
+  "devDependencies": {
+    "@types/node": "^13.1.7",
+    "tape": "^4.13.0",
+    "typescript": "^3.7.4"
+  }
+}
