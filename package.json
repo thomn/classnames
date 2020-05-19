@@ -1,15 +1,17 @@
 {
   "name": "@thomann/classnames",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "utility for conditionally joining classnames",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json -w",
-    "test": "ts-node node_modules/tape/bin/tape tests/**/*.ts"
+    "test": "ts-node node_modules/tape/bin/tape tests/**/*.ts",
+    "publish": "npm publish --access public"
   },
   "files": [
-    "lib"
+    "dist",
+    "types"
   ],
   "types": "types/index.d.ts",
   "repository": {
@@ -26,9 +28,9 @@
   },
   "homepage": "https://github.com/thomn/classnames#readme",
   "devDependencies": {
-    "@types/node": "^13.11.0",
-    "tape": "^4.13.2",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "@types/node": "^14.0.1",
+    "tape": "^5.0.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
   }
 }
