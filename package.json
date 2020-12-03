@@ -1,13 +1,12 @@
 {
   "name": "@thomann/classnames",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "utility for conditionally joining classNames",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "watch": "tsc -p tsconfig.json -w",
-    "test": "ts-node node_modules/tape/bin/tape tests/**/*.ts",
-    "publish": "npm publish --access public"
+    "test": "ts-node node_modules/tape/bin/tape tests/**/*.ts"
   },
   "files": [
     "dist",
