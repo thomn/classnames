@@ -24,9 +24,9 @@ const operations = table(
     (value) => value,
     (value) => value,
     (value) => value,
-    (value) => useClassName(...value),
-    (value) => Object.keys(value).filter(key => useClassName(value[key])),
-    (value) => useClassName(value())
+    (value) => classNames(...value),
+    (value) => Object.keys(value).filter(key => classNames(value[key])),
+    (value) => classNames(value())
 );
 
 /**
@@ -101,7 +101,7 @@ const trim = (values) => (
  * @param entries
  * @returns {string}
  */
-const useClassName = pipe(
+const classNames = pipe(
     filter,
     map,
     flatten,
@@ -114,4 +114,4 @@ const useClassName = pipe(
  * Date: 07.09.2019
  * Time: 21:59
  */
-export default useClassName;
+export default classNames;
