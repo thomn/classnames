@@ -1,7 +1,7 @@
 {
   "name": "@thomann/classnames",
-  "version": "1.1.0",
-  "description": "utility for conditionally joining classnames",
+  "version": "1.1.1",
+  "description": "utility for conditionally joining classNames",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
@@ -28,9 +28,9 @@
   },
   "homepage": "https://github.com/thomn/classnames#readme",
   "devDependencies": {
-    "@types/node": "^14.0.1",
-    "tape": "^5.0.0",
-    "ts-node": "^8.10.1",
-    "typescript": "^3.9.2"
+    "@types/node": "^14.14.10",
+    "tape": "^5.0.1",
+    "ts-node": "^9.1.0",
+    "typescript": "^4.1.2"
   }
 }
