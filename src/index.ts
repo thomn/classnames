@@ -110,6 +110,16 @@ const classNames = pipe(
 );
 
 /**
+ *
+ * @param namespace
+ */
+export const factory = pipe(
+    (namespace: string) => (...args) => (
+        classNames(namespace, ...args)
+    )
+)
+
+/**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>
  * Date: 07.09.2019
  * Time: 21:59

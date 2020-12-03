@@ -28,3 +28,11 @@ tape('test classNames', ({plan, equal}) => {
     plan(1);
     equal(actual, expect);
 });
+
+tape('test classNames factory', ({plan, equal}) => {
+    const actual = factory('base')('a', {b: true, c: false})
+    const expect = 'base a b';
+
+    plan(1);
+    equal(actual, expect);
+});
