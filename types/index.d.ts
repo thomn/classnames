@@ -1,2 +1,3 @@
-declare const useClassName: (...args: any[]) => any;
-export default useClassName;
+declare const classNames: (...args: any[]) => any;
+export declare const factory: (...args: any[]) => any;
+export default classNames;
