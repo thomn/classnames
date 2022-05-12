@@ -1,26 +1,15 @@
 "use strict";
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.factory = void 0;
-var table = function (bool, number, string, array, object, fn) {
-    var _a;
-    return (_a = {},
-        _a[Boolean.toString()] = bool,
-        _a[Number.toString()] = number,
-        _a[String.toString()] = string,
-        _a[Array.toString()] = array,
-        _a[Object.toString()] = object,
-        _a[Function.toString()] = fn,
-        _a);
-};
-var operations = table(function (value) { return value; }, function (value) { return value; }, function (value) { return value; }, function (value) { return classNames.apply(void 0, value); }, function (value) { return Object.keys(value).filter(function (key) { return classNames(value[key]); }); }, function (value) { return classNames(value()); });
-var type = function (value) { return (value.constructor.toString()); };
 var pipe = function () {
     var fns = [];
     for (var _i = 0; _i < arguments.length; _i++) {
@@ -34,21 +23,53 @@ var pipe = function () {
         return (fns.reduce(function (acc, next) { return next(acc); }, args));
     };
 };
-var filter = function (values) { return (values.filter(Boolean)); };
-var map = function (values) { return values.map(function (value) {
-    return (operations[type(value)] || (function () { return value; }))(value);
-}); };
-var flatten = function (values) { return (values.reduce(function (acc, val) { return Array.isArray(val)
-    ? acc.concat(flatten(val))
-    : acc.concat(val); }, [])); };
-var join = function (values) { return (values.join(' ')); };
-var trim = function (values) { return (values.trim()); };
-var classNames = pipe(filter, map, flatten, join, trim);
+var operations = new Map([
+    [Boolean.prototype.constructor, function (value) { return value; }],
+    [Number.prototype.constructor, function (value) { return value; }],
+    [String.prototype.constructor, function (value) { return value; }],
+    [Array.prototype.constructor, function (value) { return classNames.apply(void 0, value); }],
+    [Object.prototype.constructor, function (value) { return Object.keys(value).filter(function (key) { return classNames(value[key]); }); }],
+    [Function.prototype.constructor, function (value) { return classNames(value()); }],
+]);
+var map = function (values) {
+    var mapped = [];
+    for (var i = 0; i < values.length; i++) {
+        var value = values[i];
+        if (!value) {
+            continue;
+        }
+        var type = value.constructor;
+        var operation = operations.get(type);
+        if (!operation) {
+            continue;
+        }
+        mapped.push(operation(value));
+    }
+    return mapped;
+};
+var join = function (values) {
+    var l = values.length;
+    var string = '';
+    for (var i = 0; i < l; i++) {
+        var value = values[i];
+        if (Array.isArray(value)) {
+            string += join(value);
+        }
+        else {
+            string += value;
+        }
+        if (i < l - 1) {
+            string += ' ';
+        }
+    }
+    return string;
+};
+var classNames = pipe(map, join);
 exports.factory = pipe(function (namespace) { return function () {
     var args = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         args[_i] = arguments[_i];
     }
-    return (classNames.apply(void 0, __spreadArrays([namespace], args)));
+    return (classNames.apply(void 0, __spreadArray([namespace], args, false)));
 }; });
 exports.default = classNames;
