@@ -1,42 +1,62 @@
-/**
- *
- * @param bool
- * @param number
- * @param string
- * @param array
- * @param object
- * @param fn
- * @internal
- */
-const table = (bool, number, string, array, object, fn) => ({
-    [Boolean.toString()]: bool,
-    [Number.toString()]: number,
-    [String.toString()]: string,
-    [Array.toString()]: array,
-    [Object.toString()]: object,
-    [Function.toString()]: fn
-});
+const OPERATIONS = new Map([
+    [Boolean.prototype.constructor, (value) => value],
+    [Number.prototype.constructor, (value) => value],
+    [String.prototype.constructor, (value) => value],
+    [Array.prototype.constructor, (value) => classNames(...value)],
+    [Object.prototype.constructor, (value) => Object.keys(value).filter(key => classNames(value[key]))],
+    [Function.prototype.constructor, (value) => classNames(value())],
+]);
 
 /**
  *
+ * @param values
+ * @internal
  */
-const operations = table(
-    (value) => value,
-    (value) => value,
-    (value) => value,
-    (value) => classNames(...value),
-    (value) => Object.keys(value).filter(key => classNames(value[key])),
-    (value) => classNames(value())
-);
+const map = (values: any[]): string | string[] => {
+    const mapped = [];
+
+    for (let i = 0; i < values.length; i++) {
+        const value = values[i];
+        if (!value) {
+            continue;
+        }
+
+        const type = value.constructor;
+        const operation = OPERATIONS.get(type);
+        if (!operation) {
+            continue;
+        }
+
+        mapped.push(operation(value));
+    }
+
+    return mapped;
+};
 
 /**
  *
- * @param value
+ * @param values
  * @internal
  */
-const type = (value) => (
-    value.constructor.toString()
-);
+const join = (values: any[]): string => {
+    const l = values.length;
+    let string = '';
+
+    for (let i = 0; i < l; i++) {
+        const value = values[i];
+        if (Array.isArray(value)) {
+            string += join(value);
+        } else {
+            string += value;
+        }
+
+        if (i < l - 1) {
+            string += ' ';
+        }
+    }
+
+    return string;
+};
 
 /**
  *
@@ -49,64 +69,12 @@ const pipe = (...fns) => (...args) => (
 
 /**
  *
- * @param values
- * @internal
- */
-const filter = (values) => (
-    values.filter(Boolean)
-);
-
-/**
- *
- * @param values
- * @internal
- */
-const map = (values) => values.map(value =>
-    (operations[type(value)] || (() => value))(value)
-);
-
-/**
- *
- * @param values
- * @internal
- */
-const flatten = (values) => (
-    values.reduce((acc, val) => Array.isArray(val)
-        ? acc.concat(flatten(val))
-        : acc.concat(val)
-        , []
-    )
-);
-
-/**
- *
- * @param values
- * @internal
- */
-const join = (values) => (
-    values.join(' ')
-);
-
-/**
- *
- * @param values
- * @internal
- */
-const trim = (values) => (
-    values.trim()
-);
-
-/**
- *
  * @param entries
  * @returns {string}
  */
 const classNames = pipe(
-    filter,
     map,
-    flatten,
     join,
-    trim
 );
 
 /**
@@ -116,8 +84,8 @@ const classNames = pipe(
 export const factory = pipe(
     (namespace: string) => (...args) => (
         classNames(namespace, ...args)
-    )
-)
+    ),
+);
 
 /**
  * User: Oleg Kamlowski <oleg.kamlowski@thomann.de>
