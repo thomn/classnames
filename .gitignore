@@ -6,4 +6,5 @@ package-lock.json
 *.tgz
 
 /dist
+/types
 /coverage
