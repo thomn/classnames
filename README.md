@@ -24,7 +24,7 @@ compose({
     [color]: color,
     ['font-' + size]: size,
     ['position-' + pos]: pos
-}); // == 'creen font-big'
+}); // == 'green font-big'
 // color and size variables are "truthy" so their keys are concatenated with their variable value
 // pos variable is null and thus "falsy", no key concatenation is happening
 ```
