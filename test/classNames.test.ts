@@ -50,8 +50,8 @@ describe('@thomann/classnames', () => {
 
             classNames({"foo": "2"});
 
-            const expected = classNames('foo', Buffer.from('bar'), new class {});
-            const actual = 'foo';
+            const actual = classNames('foo', Buffer.from('bar'), new class {});
+            const expected = 'foo';
 
             assert(actual === expected);
         });
