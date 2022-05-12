@@ -81,7 +81,7 @@ const classNames = pipe(
  *
  * @param namespace
  */
-export const factory = pipe(
+const factory = pipe(
     (namespace: string) => (...args) => (
         classNames(namespace, ...args)
     ),
@@ -92,4 +92,7 @@ export const factory = pipe(
  * Date: 07.09.2019
  * Time: 21:59
  */
-export default classNames;
+export {
+    factory,
+    classNames as default,
+};
