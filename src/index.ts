@@ -63,7 +63,7 @@ const join = (values: any[]): string => {
  * @param fns
  * @internal
  */
-const pipe = (...fns) => (...args) => (
+const pipe = <T>(...fns) => (...args): T => (
     fns.reduce((acc, next) => next(acc), args)
 );
 
@@ -72,7 +72,7 @@ const pipe = (...fns) => (...args) => (
  * @param entries
  * @returns {string}
  */
-const classNames = pipe(
+const classNames = pipe<string>(
     map,
     join,
 );
@@ -81,7 +81,7 @@ const classNames = pipe(
  *
  * @param namespace
  */
-const factory = pipe(
+const factory = pipe<(...args: any[]) => string>(
     (namespace: string) => (...args) => (
         classNames(namespace, ...args)
     ),
