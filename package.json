@@ -4,8 +4,8 @@
   "description": "utility for conditionally joining classNames",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
-    "watch": "tsc -p tsconfig.json -w",
+    "build": "tsc --project tsconfig.prod.json",
+    "watch": "tsc --watch",
     "test": "mocha -r ts-node/register/transpile-only --full-trace 'test/**/*.ts'",
     "test:watch": "mocha -r ts-node/register/transpile-only --watch --watch-files src/*.ts,test/**/*.ts --full-trace 'test/**/*.ts'",
     "coverage": "nyc npm test"
