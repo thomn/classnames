@@ -1,11 +1,10 @@
-const OPERATIONS = new Map([
-    [Boolean.prototype.constructor, (value) => value],
-    [Number.prototype.constructor, (value) => value],
-    [String.prototype.constructor, (value) => value],
-    [Array.prototype.constructor, (value) => classNames(...value)],
-    [Object.prototype.constructor, (value) => Object.keys(value).filter(key => classNames(value[key]))],
-    [Function.prototype.constructor, (value) => classNames(value())],
-]);
+const OPERATIONS = new Map();
+OPERATIONS.set(Boolean.prototype.constructor, (value) => value);
+OPERATIONS.set(Number.prototype.constructor, (value) => value);
+OPERATIONS.set(String.prototype.constructor, (value) => value);
+OPERATIONS.set(Array.prototype.constructor, (value) => classNames(...value));
+OPERATIONS.set(Object.prototype.constructor, (value) => Object.keys(value).filter(key => classNames(value[key])));
+OPERATIONS.set(Function.prototype.constructor, (value) => classNames(value()));
 
 /**
  *
