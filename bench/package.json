@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "scripts": {
+    "benchmark": "cd .. && npm i && npm run build && cd ./bench && node index.js"
+  },
+  "devDependencies": {
+    "benchmark": "^2.1.4",
+    "classcat": "^3.2.5",
+    "classnames": "^2.2.6",
+    "clsx": "1.1.0",
+    "@thomann/classnames": "^1.2.1"
+  }
+}
