@@ -1,11 +1,3 @@
-const OPERATIONS = new Map();
-OPERATIONS.set(Boolean.prototype.constructor, (value) => value);
-OPERATIONS.set(Number.prototype.constructor, (value) => value);
-OPERATIONS.set(String.prototype.constructor, (value) => value);
-OPERATIONS.set(Array.prototype.constructor, (value) => classNames(...value));
-OPERATIONS.set(Object.prototype.constructor, (value) => Object.keys(value).filter(key => classNames(value[key])));
-OPERATIONS.set(Function.prototype.constructor, (value) => classNames(value()));
-
 /**
  *
  * @param values
@@ -20,13 +12,23 @@ const map = (values: any[]): string | string[] => {
             continue;
         }
 
-        const type = value.constructor;
-        const operation = OPERATIONS.get(type);
-        if (!operation) {
-            continue;
-        }
+        switch (value.constructor) {
+            case Boolean.prototype.constructor:
+            case Number.prototype.constructor:
+            case String.prototype.constructor:
+                mapped.push(value);
+                break;
+            case Function.prototype.constructor:
+                mapped.push(classNames(value()));
+                break;
+            case Array.prototype.constructor:
+                mapped.push(classNames(...value))
+                break;
+            case Object.prototype.constructor:
+                mapped.push(Object.keys(value).filter((key) => classNames(value[key])));
 
-        mapped.push(operation(value));
+                break;
+        }
     }
 
     return mapped;
@@ -43,6 +45,10 @@ const join = (values: any[]): string => {
 
     for (let i = 0; i < l; i++) {
         const value = values[i];
+        if (!value) {
+            continue;
+        }
+
         if (Array.isArray(value)) {
             string += join(value);
         } else {
