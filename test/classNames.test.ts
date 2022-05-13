@@ -65,4 +65,59 @@ describe('@thomann/classnames', () => {
             assert(actual === expected);
         });
     });
+
+    describe('examples', () => {
+        describe('basic', () => {
+            it('should match README', () => {
+                const color = 'green';
+                const size = 'big';
+                const pos = null;
+
+                const actual = classNames({
+                    [color]: color,
+                    ['font-' + size]: size,
+                    ['position-' + pos]: pos,
+                });
+
+                const expected = 'green font-big';
+
+                assert(actual === expected);
+            });
+        });
+
+        describe('complete', () => {
+            it('should match README', () => {
+                const string = 'uppercase';
+                const array = ['italic' , 'bold'];
+                const object = {icon: true};
+
+                const actual = classNames(
+                    'modal',
+                    {
+                        'warning': false,
+                        'show': true,
+                        'small': array.length >= 1
+                    },
+                    object,
+                    array.map((item) => 'text-' + item),
+                    {
+                        ['text-' + string]: string,
+                        ['font-' + string]: null,
+                    },
+                    {
+                        positive: () => {
+                            return true;
+                        },
+                        negative: () => {
+                            return false;
+                        },
+                    }
+                );
+
+                const expected = 'modal show small icon text-italic text-bold text-uppercase positive';
+
+                assert(actual === expected);
+            })
+        })
+    })
 });
