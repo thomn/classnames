@@ -62,10 +62,6 @@ const string = 'uppercase';
 const array = ['italic' , 'bold'];
 const object = {icon: true};
 
-const string = 'uppercase';
-const array = ['italic' , 'bold'];
-const object = {icon: true};
-
 classNames(
     'modal',
     {
