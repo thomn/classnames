@@ -65,6 +65,14 @@ const join = (values: any[]): string => {
 
 /**
  *
+ * @param string
+ */
+const trim = (string: string): string => (
+    string.trim()
+);
+
+/**
+ *
  * @param fns
  * @internal
  */
@@ -80,6 +88,7 @@ const pipe = <T>(...fns) => (...args): T => (
 const classNames = pipe<string>(
     map,
     join,
+    trim,
 );
 
 /**
