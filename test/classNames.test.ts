@@ -111,7 +111,8 @@ describe('@thomann/classnames', () => {
                         negative: () => {
                             return false;
                         },
-                    }
+                    },
+                    () => {}
                 );
 
                 const expected = 'modal show small icon text-italic text-bold text-uppercase positive';
